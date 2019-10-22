@@ -36,8 +36,11 @@ FusionEKF::FusionEKF() {
    * TODO: Finish initializing the FusionEKF.
    * TODO: Set the process and measurement noises
    */
+  // Px and Py measerument
+  H_laser_ << 1, 0, 0, 0,
+              0, 1, 0, 0;
 
-
+  // Hj_ is initialized when used
 }
 
 /**
