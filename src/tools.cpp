@@ -51,9 +51,11 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   float vy = x_state(3);
 
   // check division by zero
-  if (px==0.0 and py==0.0)
+  if (sqrt(px*px + py*py) < 0.1)
   {
-      std::cout << "division by zero" << std::endl;
+      std::cout << "division by small number" << std::endl;
+      Hj(0,0) = -1;  // Set error value to read
+      Hj(1,1) = -1;
       return Hj;
   }
   

@@ -1,4 +1,6 @@
 #include "kalman_filter.h"
+#include <iostream>
+#include <cmath>
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
@@ -64,6 +66,15 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   hx(2) = (px*vx + py*vy)/rho;  // rho_dot
   // Calculate kalman error
   VectorXd err = z - hx; 
+  // Correct 'phi-err' for pi to -pi wrapping
+  if (err(1) > M_PI)
+    err(1) = err(1) - 2.0*M_PI;
+  else if (err(1) < -M_PI)
+    err(1) = err(1) + 2.0*M_PI;
+
+  // debug
+  std::cout << "Angle: " << hx(1) << std::endl;
+  std::cout << "err: " << err << std::endl;
 
   // Update Kalman matrixes (note: H is the Jacobian matrix) 
   MatrixXd S = H_ * P_ * H_.transpose() + R_;
