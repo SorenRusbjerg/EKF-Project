@@ -12,7 +12,7 @@ using std::vector;
 enum E_SensorType {LASER, RADAR, BOTH};
 
 // Set sensor to be used
-E_SensorType sensor = LASER;  
+E_SensorType sensor = BOTH;  
 
 /**
  * Constructor.
